@@ -9,6 +9,10 @@ html, body {
 	scroll-behavior: smooth;
 }
 
+body {
+    overscroll-behavior: none;
+}
+
 #body-wrapper {
 	// max-width: 1440px;
 	margin: 0 auto;
