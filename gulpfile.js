@@ -9,9 +9,20 @@ const imagewebp = require('gulp-webp');
 const mozjpeg = require('imagemin-mozjpeg');
 const browserSync = require('browser-sync').create(); // Import browser-sync
 const bsConfig = require('./bs-config');
+const { exec } = require('child_process');
 
 
-
+// !Task for running the build script
+function build(callback) {
+    exec('npm run build', (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Build script error: ${error}`);
+      }
+      console.log(stdout);
+      console.error(stderr);
+      callback();
+    });
+  }
 
 
 // !Functions
@@ -40,13 +51,13 @@ function jsmin() {
 async function optimizeimg() {
     const imagemin = await import('gulp-imagemin');
     
-    return src('src/images/*.{jpg,png}')
+    return src('src/img/*.{jpg,png}')
       .pipe(
         imagemin.default([
           mozjpeg({ quality: 80, progressive: true }),
         ])
       )
-      .pipe(dest('dist/images'))
+      .pipe(dest('dist/img'))
       .pipe( browserSync.stream() );
   }
   
@@ -73,7 +84,13 @@ function liteServer() {
     })
 
     watch('src/scss/**/*.scss', compilescss).on('change', browserSync.reload);
-    watch('src/js/**/*.js', jsmin).on('change', browserSync.reload);
+    // * Watch JS Files to trigger build from webpack
+    watch('src/js/**/*.js', { ignoreInitial: false }, function (cb) {
+        build(() => {
+            cb();
+            // jsmin();
+        });
+      }).on('change', browserSync.reload);
     watch('src/images/**/*.{jpg,png}', series(optimizeimg, webpImage)).on('add', optimizeimg).on('change', browserSync.reload);
     watch('**/*.html').on('change', browserSync.reload);
     
