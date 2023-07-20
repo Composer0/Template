@@ -3,7 +3,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 h1 {
-    font-size: 73px;
+    font-size: clamp(2rem , 5vw + 1rem, 4.565rem);
     font-weight: 900;
     margin-bottom: 16px;
     color: $white;
@@ -13,7 +13,7 @@ h1 {
 }
 
 h2 {
-    font-size: 34px;
+    font-size: clamp(1.7rem , 5vw + 1rem, 2rem);
     line-height: 1.2em;
     color: $blue;
     font-weight: 900;
@@ -24,30 +24,30 @@ h2 {
 }
 
 h3 {
-    font-size: 27px;
+    font-size: clamp(1.5rem , 5vw + 1rem, 1.69rem);
     color: $black;
     font-weight: 700;
 }
 
 h4 {
-    font-size: 58px;
+    font-size: clamp(2rem , 5vw + 1rem, 3.625rem);
     font-weight: 900;
 }
 
 h5 {
-    font-size: 38px;
+    font-size: clamp(1.8rem , 5vw + 1rem, 2.375rem);
     font-weight: 900;
     color:$white;
 }
 
 h6 {
-    font-size: 28px;
+    font-size: clamp(1.6rem , 5vw + 1rem, 1.75rem);
     font-weight: 900;
     color:$white;
 }
 
 p {
-    font-size: 18px;
+    font-size: clamp(1rem , 5vw + 1rem, 1.125rem);
     line-height: 1.4em;
     font-weight: 500;
     color: $black;
